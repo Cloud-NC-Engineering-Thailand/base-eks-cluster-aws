@@ -1,9 +1,10 @@
 
 // for provider.tf
 provider_aws = {
-  access_key = ""
-  secret_key = ""
+  access_key = "AKIAR25PCEOZVEFOO5YL"
+  secret_key = "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"
 }
+
 
 // for vpc.tf
 network = {

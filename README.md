@@ -20,9 +20,9 @@ This repository is designed to help you create an Elastic Kubernetes Service (EK
 ## How to
 Here are the steps to follow in order to use this repository:
 
-1.You need to authorize with the aws in someway in this case you can add your access_key and secret key in ./eks/terraform.tfvars and ./iam/terraform.tfvars
+1.You need to authorize with the aws in someway in this case you can add your access_key and secret key in ./eks/terraform.tfvars and ./foundation/terraform.tfvars
 
-2.Get into "iam" folder and make changes to the values and policies as desired. You can add multiple users and groups according to your requirements.
+2.Get into "foundation" folder and make changes to the values and policies as desired. You can add multiple users and groups according to your requirements.
 
 3.Run "terraform init", "terraform plan" and "terraform apply" after run all those command copy the output values. You will need these values in the next step.
 <br>
