@@ -1,8 +1,8 @@
 
 // for provider.tf
 provider_aws = {
-  access_key = "AKIAR25PCEOZVEFOO5YL"
-  secret_key = "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"
+  access_key = ""
+  secret_key = ""
 }
 
 
