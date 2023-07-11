@@ -46,7 +46,6 @@ variable "provider_aws" {
 
 variable "network" {
   type = object({
-    version                = string
     name                   = string
     cidr                   = string
     availability_zones     = list(string)
@@ -60,7 +59,6 @@ variable "network" {
     tags_env               = string
   })
   default = {
-    version                = "3.14.3"
     name                   = "main"
     cidr                   = "10.0.0.0/16"
     availability_zones     = ["us-east-1a", "us-east-1b"]
