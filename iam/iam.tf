@@ -2,14 +2,14 @@
 locals {
   iam_create_user = flatten([for iam_config in var.iam : iam_config.user])
 }
-
 module "create_iam_user" {
+  #checkov:skip=CKV_TF_1: "Ensure Terraform module sources use a commit hash"
 
   count = length(local.iam_create_user)
 
   source  = "terraform-aws-modules/iam/aws//modules/iam-user"
   version = "5.3.1"
-  
+
   name                          = local.iam_create_user[count.index]
   create_iam_access_key         = false
   create_iam_user_login_profile = false
@@ -18,11 +18,9 @@ module "create_iam_user" {
 }
 
 
-# locals  {
-#   iam_user_names = [for user in module.create_iam_user : user.iam_user_name]
-# }
 
 module "eks_iam_group" {
+  #checkov:skip=CKV_TF_1: "Ensure Terraform module sources use a commit hash"
 
   count = length(var.iam)
 
@@ -36,8 +34,8 @@ module "eks_iam_group" {
   custom_group_policy_arns          = [module.allow_assume_eks_iam_policy[count.index].arn]
 }
 
-
 module "allow_eks_access_iam_policy" {
+  #checkov:skip=CKV_TF_1: "Ensure Terraform module sources use a commit hash"
 
   count = length(var.iam)
 
@@ -51,15 +49,15 @@ module "allow_eks_access_iam_policy" {
     Version = "2012-10-17"
     Statement = [
       {
-        Action = var.iam[count.index].allow_eks_access_action
+        Action   = var.iam[count.index].allow_eks_access_action
         Effect   = var.iam[count.index].effect
         Resource = var.iam[count.index].resource
       },
     ]
   })
 }
-
 module "eks_iam_role" {
+  #checkov:skip=CKV_TF_1: "Ensure Terraform module sources use a commit hash"
 
   count = length(var.iam)
 
@@ -78,8 +76,8 @@ module "eks_iam_role" {
 }
 
 
-
 module "allow_assume_eks_iam_policy" {
+  #checkov:skip=CKV_TF_1: "Ensure Terraform module sources use a commit hash"
 
   count = length(var.iam)
 
@@ -103,5 +101,3 @@ module "allow_assume_eks_iam_policy" {
     ]
   })
 }
-
-

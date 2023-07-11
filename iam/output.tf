@@ -11,5 +11,5 @@ output "rolearn" {
 }
 
 output "rolename" {
-    value = module.eks_iam_role.*.iam_role_name
+  value = module.eks_iam_role.*.iam_role_name
 }

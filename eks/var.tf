@@ -1,32 +1,32 @@
 
 variable "provider_aws" {
-    type = object({
-      access_key = string
-      secret_key = string 
-    })
+  type = object({
+    access_key = string
+    secret_key = string
+  })
 }
 
 variable "eks" {
   type = object({
-    cluster_name                      = string
-    cluster_endpoint_private_access   = bool
-    cluster_endpoint_public_access    = bool
-    vpc_id                            = string
-    subnet_ids                        = list(string)
-    enable_irsa                       = bool
-    disk_size                         = number
-    manage_aws_auth_configmap         = bool
-    aws_auth_roles                    = list(object({
-      rolearn   = string
-      username  = string
-      groups    = list(string)
+    cluster_name                    = string
+    cluster_endpoint_private_access = bool
+    cluster_endpoint_public_access  = bool
+    vpc_id                          = string
+    subnet_ids                      = list(string)
+    enable_irsa                     = bool
+    disk_size                       = number
+    manage_aws_auth_configmap       = bool
+    aws_auth_roles = list(object({
+      rolearn  = string
+      username = string
+      groups   = list(string)
     }))
-    env                               = string
+    env = string
   })
 }
 
 variable "eks_managed_node_groups" {
-  type = any
+  type    = any
   default = {}
 }
 

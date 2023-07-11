@@ -20,9 +20,11 @@ This repository is designed to help you create an Elastic Kubernetes Service (EK
 ## How to
 Here are the steps to follow in order to use this repository:
 
-1.Get into "iam" folder and make changes to the values and policies as desired. You can add multiple users and groups according to your requirements.
+1.You need to authorize with the aws in someway in this case you can add your access_key and secret key in ./eks/terraform.tfvars and ./iam/terraform.tfvars
 
-2.Run "terraform init", "terraform plan" and "terraform apply" after run all those command copy the output values. You will need these values in the next step.
+2.Get into "iam" folder and make changes to the values and policies as desired. You can add multiple users and groups according to your requirements.
+
+3.Run "terraform init", "terraform plan" and "terraform apply" after run all those command copy the output values. You will need these values in the next step.
 <br>
 
 <b>Example Outputs</b>
@@ -30,7 +32,7 @@ Here are the steps to follow in order to use this repository:
     ![Alt text](./asset/image.png)
 <br>
 
-3.Get into "eks" folder, open terraform.tfvars file, place the copied value and edit any value as you want. Note that if you have changed the kube_role.name, ensure that eks.aws_auth_roles.groups have the same name.
+4.Get into "eks" folder, open terraform.tfvars file, place the copied value and edit any value as you want. Note that if you have changed the kube_role.name, ensure that eks.aws_auth_roles.groups have the same name.
 
 
 <b>Example</b>
@@ -38,9 +40,9 @@ Here are the steps to follow in order to use this repository:
     ![Alt text](./asset/output.jpg)
 <br>
 
-4.Run "terraform init", "terraform plan" and "terraform apply" This will create the EKS cluster based on your configuration.
+5.Run "terraform init", "terraform plan" and "terraform apply" This will create the EKS cluster based on your configuration.
 
-5.To test the result run following command (assuming you haven't changed any default values)
+6.To test the result run following command (assuming you haven't changed any default values)
 
 <b> Basic Testing </b>
 
@@ -50,32 +52,32 @@ Here are the steps to follow in order to use this repository:
 
 <b> Test Eks policy </b>
 
-You need to create a credential key for a specific user to test the policy. 
+You need to create a credential key for a specific user to test the policy.
 Use the appropriate link for your region to create the credentials.
 <a href="https://us-east-1.console.aws.amazon.com/iamv2/home?region=us-east-1#/users" target="_blank">https://us-east-1.console.aws.amazon.com/iamv2/home?region=us-east-1#/users</a>
-    
+
     aws configure --profile admin1
     # place you accesskey ,secretkey and other
-    
+
     vim ~/.aws/config
     # add this to config
     [profile eks-admin]
     role_arn = arn:aws:iam::(Your arn id):role/eks-admin
     source_profile = admin1
-    
+
     aws sts get-caller-identity --profile eks-admin
     # You will get some result if you done it correctly
 
     aws eks update-kubeconfig --name my-eks --region us-east-1 --profile eks-admin
     # This command will make you run cli by using profile eks-admin (Now you are using admin policy)
 
-    kubectl auth can-i "*" "*"    
+    kubectl auth can-i "*" "*"
     # The result should be yes because you are using the group name system:masters
 
     #To test for our custom policy you need to sign in other user create credential for dev1
     aws configure --profile dev1
     # place you accesskey ,secretkey and other
-    
+
     vim ~/.aws/config
     # add this to config
     [profile eks-dev]
@@ -85,7 +87,7 @@ Use the appropriate link for your region to create the credentials.
 
     aws eks update-kubeconfig --name my-eks --region us-east-1 --profile eks-dev
     # If you running this command that mean you are using profile dev1 now
-    # Try to run  
+    # Try to run
     kubectl auth can-i "*" "*"
     # The result will be no because we can only "get", "list", "watch" on this profile
     kubectl get pods

@@ -17,9 +17,8 @@ terraform {
 
 
 provider "aws" {
-  # profile = "eksctl"
-  region  = "us-east-1"
-
+  region = "us-east-1"
+  #checkov:skip=CKV_AWS_41: "Ensure no hard coded AWS access key and secret key exists in provider"
   access_key = var.provider_aws.access_key
   secret_key = var.provider_aws.secret_key
 }

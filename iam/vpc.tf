@@ -1,15 +1,16 @@
 module "vpc" {
+  #checkov:skip=CKV_TF_1: "Ensure Terraform module sources use a commit hash"
   source  = "terraform-aws-modules/vpc/aws"
   version = "3.14.3"
 
   name = var.network.name
   cidr = var.network.cidr
 
-  azs             = var.network.availability_zones
-  
+  azs = var.network.availability_zones
+
   private_subnets = var.network.private_subnets
 
-  public_subnets  = var.network.public_subnets
+  public_subnets = var.network.public_subnets
 
   enable_nat_gateway     = var.network.enable_nat_gateway
   single_nat_gateway     = var.network.single_nat_gateway

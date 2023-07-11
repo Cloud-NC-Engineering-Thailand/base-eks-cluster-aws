@@ -1,9 +1,9 @@
 resource "kubernetes_role" "kube_role" {
-  
+
   count = length(var.kube_role)
 
   metadata {
-    name = var.kube_role[count.index].metadata.name
+    name      = var.kube_role[count.index].metadata.name
     namespace = var.kube_role[count.index].metadata.namespace
   }
 
@@ -19,7 +19,7 @@ resource "kubernetes_role_binding_v1" "kube_role_binding" {
   count = length(var.kube_role_binding)
 
   metadata {
-    name = var.kube_role_binding[count.index].metadata.name
+    name      = var.kube_role_binding[count.index].metadata.name
     namespace = var.kube_role_binding[count.index].metadata.namespace
   }
   role_ref {

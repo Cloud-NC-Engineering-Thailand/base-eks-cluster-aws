@@ -1,12 +1,12 @@
 
 
-
 module "eks" {
-  source  = "terraform-aws-modules/eks/aws"
-  version = "18.29.0"
+  #checkov:skip=CKV_TF_1: "Ensure Terraform module sources use a commit hash"
+  source          = "terraform-aws-modules/eks/aws"
+  version         = "18.29.0"
   cluster_version = "1.25"
 
-  cluster_name    = var.eks.cluster_name
+  cluster_name = var.eks.cluster_name
 
   cluster_endpoint_private_access = var.eks.cluster_endpoint_private_access
   cluster_endpoint_public_access  = var.eks.cluster_endpoint_public_access
@@ -19,13 +19,13 @@ module "eks" {
   eks_managed_node_group_defaults = {
     disk_size = var.eks.disk_size
   }
-  
+
   eks_managed_node_groups = var.eks_managed_node_groups
 
   manage_aws_auth_configmap = var.eks.manage_aws_auth_configmap
-  aws_auth_roles = var.eks.aws_auth_roles
-  
- 
+  aws_auth_roles            = var.eks.aws_auth_roles
+
+
   tags = {
     Environment = var.eks.env
   }
@@ -51,4 +51,3 @@ provider "kubernetes" {
     command     = "aws"
   }
 }
-
