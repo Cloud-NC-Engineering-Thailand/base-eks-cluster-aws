@@ -1,4 +1,4 @@
-resource "kubernetes_role" "example" {
+resource "kubernetes_role" "kube_role" {
   
   count = length(var.kube_role)
 
@@ -14,7 +14,7 @@ resource "kubernetes_role" "example" {
   }
 }
 
-resource "kubernetes_role_binding_v1" "example" {
+resource "kubernetes_role_binding_v1" "kube_role_binding" {
 
   count = length(var.kube_role_binding)
 
